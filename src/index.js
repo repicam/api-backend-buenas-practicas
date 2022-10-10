@@ -1,10 +1,10 @@
 const express = require("express");
-const v1Router = require("./v1/routes")
+const v1ProductRouter = require("./v1/routes/productRoutes")
 
 const app = express();
 const PORT = 3000;
 
-app.use("/api/v1", v1Router);
+app.use("/api/v1/products", v1ProductRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor inciado en el puerto ${PORT}`);

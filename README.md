@@ -15,3 +15,6 @@ Proyecto backend para crear una api con buenas prácticas
 Creamos una primera version (v1) para comenzar el proyecto. 
 
 Si luego queremos crear una nueva version, añadiremos un nuevo use (app.use("/api/v2", v2Router)) donde añadimos la nueva carpeta de version (v2) y gestionaremos todo lo que vaya en esta nueva version
+
+### Nombrado rutas
+Una buena práctica en el nombrado de las rutas, es crear una url para cada servicio que contenga sus rutas/metodos y cuelguen de él

@@ -2,12 +2,18 @@ const productService = require("../services/productService");
 
 const getAllProducts = (req, res) => {
     const allProducts = productService.getAllProducts();
-    res.send(`<h1>¡Get all products!</h1>`);
+    res.send({
+        status: "OK",
+        data: allProducts
+    });
 };
 
 const getOneProduct = (req, res) => {
     const product = productService.getOneProduct(req.params.productId);
-    res.send(`<h1>¡Get product ${req.params.productId}!</h1>`);
+    res.send({
+        status: "OK",
+        data: product != undefined ? product : null
+    });
 };
 
 const createNewProduct = (req, res) => {

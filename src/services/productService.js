@@ -1,8 +1,12 @@
+const Product = require("../database/Product");
+
 const getAllProducts = () => { 
-    return; 
+    const allProducts = Product.getAllProducts();
+    return allProducts;
 };
-const getOneProduct = () => { 
-    return; 
+const getOneProduct = (productId) => { 
+    const product = Product.getOneProduct(productId);
+    return product;
 };
 const createNewProduct = () => { 
     return; 

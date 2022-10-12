@@ -24,3 +24,6 @@ Creamos un controller donde crearemos los métodos que usaremos en cada ruta del
 
 ### Servicios
 Creamos un servicio donde llevaremos la lógica de negocio y no tenerlo en los controladores, y de esta forma dejamos los controladores mas limpios y legibles, como las rutas, y podemos crear métodos que podamos tener mas claros y ordenados
+
+### Acceso a datos
+Creamos un json con datos dummy para poder implementar los métodos GET (getAll y getOne) y testear la API

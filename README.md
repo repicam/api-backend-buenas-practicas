@@ -21,3 +21,6 @@ Una buena práctica en el nombrado de las rutas, es crear una url para cada serv
 
 ### Controladores
 Creamos un controller donde crearemos los métodos que usaremos en cada ruta del CRUD, y de esta forma dejamos las rutas mas limpias y legibles de que vamos a hacer. También centralizamos todo en un único fichero y si modificamos un controlador, sirve para todos los sitios donde se use
+
+### Servicios
+Creamos un servicio donde llevaremos la lógica de negocio y no tenerlo en los controladores, y de esta forma dejamos los controladores mas limpios y legibles, como las rutas, y podemos crear métodos que podamos tener mas claros y ordenados

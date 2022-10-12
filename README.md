@@ -27,3 +27,11 @@ Creamos un servicio donde llevaremos la lógica de negocio y no tenerlo en los c
 
 ### Acceso a datos
 Creamos un json con datos dummy para poder implementar los métodos GET (getAll y getOne) y testear la API
+
+### Middleware
+Usaremos el middleware bodyParser, que se encuentra dentro de express (express.json()), para parsear todas las llamadas donde nos envien un body y trasnformarlo a json, para que sea mas manejable para nuestra API 
+
+### Lógica para crear, modificar y eliminar registros
+Adaptamos nuestra API para poder "modificar" nuestro fichero dummy de datos con fs (FileSystem)
+
+En el servicio, importamos la version 4 de uuid (renombrado en el import como uuid, para legibilidad), que usaremos para generar un id a nuestro nuevo registro

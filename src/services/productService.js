@@ -1,3 +1,4 @@
+const { v4: uuid } = require("uuid");
 const Product = require("../database/Product");
 
 const getAllProducts = () => { 
@@ -8,8 +9,14 @@ const getOneProduct = (productId) => {
     const product = Product.getOneProduct(productId);
     return product;
 };
-const createNewProduct = () => { 
-    return; 
+const createNewProduct = (newProduct) => { 
+    const productToInsert = {
+        ...newProduct,
+        id: uuid()
+    };
+
+    const createdProduct = Product.createNewProduct(productToInsert);
+    return createdProduct;
 };
 const updateOneProduct = () => { 
     return; 

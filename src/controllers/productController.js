@@ -17,8 +17,41 @@ const getOneProduct = (req, res) => {
 };
 
 const createNewProduct = (req, res) => {
-    const createdProduct = productService.createNewProduct(req.body);
-    res.send(`<h1>Create product!</h1>`);
+    const { body } = req;
+
+    if (!body.title || !body.description || !body.price || !body.rating || !body.stock || !body.category){
+        res.status(400).send({
+            status: "KO",
+            error: "Faltan datos obligatorios"
+        });
+        return;
+    }
+
+    const newProduct = {
+        title: body.title,
+        description: body.description,
+        price: body.price,
+        discountPercentage: body.discountPercentage,
+        rating: body.rating,
+        stock: body.stock,
+        brand: body.brand,
+        category: body.category,
+        thumbnail: body.thumbnail,
+        images: body.images,
+    };
+
+    const createdProduct = productService.createNewProduct(newProduct);
+    if (createdProduct.error != undefined){
+        res.status(400).send({
+            status: "KO",
+            error: "Titulo ya existe en la lista de productos"
+        });
+    }
+    
+    res.status(201).send({
+        status: "OK",
+        data: createdProduct
+    });
 };
 
 const updateOneProduct = (req, res) => {
@@ -33,8 +66,8 @@ const deleteOneProduct = (req, res) => {
 
 module.exports = {
     getAllProducts,
-    getOneProduct,  
-    createNewProduct, 
-    updateOneProduct, 
+    getOneProduct,
+    createNewProduct,
+    updateOneProduct,
     deleteOneProduct
 };

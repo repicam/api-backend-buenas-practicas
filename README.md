@@ -38,3 +38,23 @@ En el servicio, importamos la version 4 de uuid (renombrado en el import como uu
 
 ### Control de errores y códigos HTTP
 Para que nuestra API sea mejor usada, mas fácil de manejar y de entender por los usuarios que hagan uso, debemos controlar los errores que puedan haber y contestar con mensajes descriptivos. Por eso, vamos a adaptar nuestra API realizando los cambios pertinentes
+
+## Ampliamos nuestra API
+
+Para añadirle mas "miga" vamos a ampliar la API
+
+### Agrupacion de recursos y rutas anidadas
+Nuestros productos, pueden tener un historial de ventas, por lo que creamos uno para cada producto, y aqui entran las rutas anidadas, porque consultamos el historial de cada producto en específico
+
+#### En relación...
+Por anidar rutas para obtener recursos, no es recomendable anidar mas de tres niveles (por ejemplo: /api/v1/products/:productId/records/members/:memberId) para acceder a una información mas detallada. Si en el historial de ventas, en lugar de la cantidad de productos totales vendidos, tuvieramos la cantidad que compra un usuario con ese usuario, nuestro objeto records tendría una apariencia similar a la siguiente:
+
+{
+    "id": "ad75d475-ac57-44f4-a02a-8f6def58ff56",
+    "product": "4a3d9aaa-608c-49a7-a004-66305ad4ab50",
+    "amount": "2",
+    "memberId": "11817fb1-03a1-4b4a-8d27-854ac893cf41",
+    "uri": "/members/:memberId"
+}
+
+De esta forma, accediendo a nuestro endpoint /api/v1/products/:productId/records, obtenemos la información de la compra (id del producto y la cantidad) con el usuario y el endpoint (uri) para obtener la información de ese usuario si nos hiciera falta, o viceversa, para consultar las compras de un usuario (/api/v1/members/:memberId/records) donde obtendremos todas las compras del usuario indicado con los productos y cantidad

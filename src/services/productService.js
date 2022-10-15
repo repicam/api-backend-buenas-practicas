@@ -18,11 +18,13 @@ const createNewProduct = (newProduct) => {
     const createdProduct = Product.createNewProduct(productToInsert);
     return createdProduct;
 };
-const updateOneProduct = () => { 
-    return; 
+const updateOneProduct = (productId, changes) => { 
+    const updatedProduct = Product.updateOneProduct(productId, changes);
+    return updatedProduct;
 };
-const deleteOneProduct = () => { 
-    return; 
+const deleteOneProduct = (productId) => { 
+    const deletedProduct = Product.deleteOneProduct(productId);
+    return deletedProduct;
 };
 
 module.exports = {

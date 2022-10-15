@@ -2,15 +2,25 @@ const productService = require("../services/productService");
 
 const getAllProducts = (req, res) => {
     const allProducts = productService.getAllProducts();
-    res.send({
+    res.status(201).send({
         status: "OK",
         data: allProducts
     });
 };
 
 const getOneProduct = (req, res) => {
-    const product = productService.getOneProduct(req.params.productId);
-    res.send({
+    const { params: {productId} } = req;
+
+    if (!productId){
+        res.status(400).send({
+            status: "KO",
+            error: "Se debe pasar un identificador por parámetro para buscar"
+        });
+        return;
+    }
+
+    const product = productService.getOneProduct(productId);
+    res.status(201).send({
         status: "OK",
         data: product != undefined ? product : null
     });
@@ -41,10 +51,10 @@ const createNewProduct = (req, res) => {
     };
 
     const createdProduct = productService.createNewProduct(newProduct);
-    if (createdProduct.error != undefined){
+    if (createdProduct.errorMsg != undefined){
         res.status(400).send({
             status: "KO",
-            error: "Titulo ya existe en la lista de productos"
+            error: createdProduct.errorMsg
         });
     }
     
@@ -55,13 +65,52 @@ const createNewProduct = (req, res) => {
 };
 
 const updateOneProduct = (req, res) => {
-    const updatedProduct = productService.updateOneProduct(req.params.productId, req.body);
-    res.send(`<h1>¡Update product ${req.params.productId}!</h1>`);
+    const { body, params: {productId} } = req;
+
+    if (!productId){
+        res.status(400).send({
+            status: "KO",
+            error: "Se debe pasar un identificador por parámetro para modificar"
+        });
+        return;
+    }
+
+    const updatedProduct = productService.updateOneProduct(productId, body);
+    if (updatedProduct.errorMsg != undefined){
+        res.status(400).send({
+            status: "KO",
+            error: updatedProduct.errorMsg
+        });
+    }
+
+    res.status(201).send({
+        status: "OK",
+        data: updatedProduct
+    });
 };
 
 const deleteOneProduct = (req, res) => {
-    const deletedProduct = productService.deleteOneProduct(req.params.productId);
-    res.send(`<h1>¡Delete product ${req.params.productId}!</h1>`);
+    const { params: {productId} } = req;
+
+    if (!productId){
+        res.status(400).send({
+            status: "KO",
+            error: "Se debe pasar un identificador por parámetro para buscar"
+        });
+        return;
+    }
+
+    const success = productService.deleteOneProduct(productId);
+    if (success.errorMsg != undefined){
+        res.status(400).send({
+            status: "KO",
+            error: success.errorMsg
+        });
+    }
+
+    res.status(204).send({
+        status: "OK"
+    });
 };
 
 module.exports = {

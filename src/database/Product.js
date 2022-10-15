@@ -12,48 +12,82 @@ const getOneProduct = (productId) => {
 const createNewProduct = (newProduct) => {
     const productExists = DB.products.findIndex((product) => product.title === newProduct.title) > -1;
 
-    if (productExists)
-        return { errorMsg: "Titulo ya existe en la lista de productos" };
+    if (productExists){
+        throw { 
+            status: 400,
+            msg: `Titulo ya existe en la lista de productos ${newProduct.title}` 
+        };
+    }
 
-    DB.products.push(newProduct);
-    saveData(DB);
+    try {
+        DB.products.push(newProduct);
+        saveData(DB);
 
-    return newProduct;
+        return newProduct;
+    } catch (error) {
+        throw {
+            status: 500,
+            msg: error?.message || error
+        }
+    }
 };
 
 const updateOneProduct = (productId, changes) => {
     const indexForUpdate = DB.products.findIndex((product) => product.id === productId);
-
-    if (indexForUpdate === -1)
-        return { errorMsg: `No existe producto con identificador ${productId}` };
+    if (indexForUpdate === -1){
+        throw { 
+            status: 400,
+            msg: `No existe producto con identificador ${productId}`
+        };
+    }
 
     const productExists = DB.products.findIndex((product) => product.title === changes.title) > -1;
-
-    if (productExists)
-        return { errorMsg: "Titulo ya existe en la lista de productos" };
-
+    if (productExists){
+        throw { 
+            status: 400,
+            msg: `Titulo ya existe en la lista de productos ${newProduct.title}` 
+        };
+    }
     
     const updatedProduct = { 
         ...DB.products[indexForUpdate], 
         ...changes 
     };
 
-    DB.products[indexForUpdate] = updatedProduct;
-    saveData(DB);
+    try {
+        DB.products[indexForUpdate] = updatedProduct;
+        saveData(DB);
 
-    return updatedProduct;
+        return updatedProduct;
+    } catch (error) {
+        throw {
+            status: 500,
+            msg: error?.message || error
+        }
+    }
 };
 
 const deleteOneProduct = (productId) => {
     const indexForDelete = DB.products.findIndex((product) => product.id === productId);
 
-    if (indexForDelete === -1)
-        return { errorMsg: `No existe producto con identificador ${productId}` };
+    if (indexForUpdate === -1){
+        throw { 
+            status: 400,
+            msg: `No existe producto con identificador ${productId}`
+        };
+    }
 
-    DB.products.splice(indexForDelete, 1);
-    saveData(DB);
+    try {
+        DB.products.splice(indexForDelete, 1);
+        saveData(DB);
 
-    return true;
+        return;
+    } catch (error) {
+        throw {
+            status: 500,
+            msg: error?.message || error
+        }
+    }
 };
 
 module.exports = {

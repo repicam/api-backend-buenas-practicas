@@ -35,3 +35,6 @@ Usaremos el middleware bodyParser, que se encuentra dentro de express (express.j
 Adaptamos nuestra API para poder "modificar" nuestro fichero dummy de datos con fs (FileSystem)
 
 En el servicio, importamos la version 4 de uuid (renombrado en el import como uuid, para legibilidad), que usaremos para generar un id a nuestro nuevo registro
+
+### Control de errores y códigos HTTP
+Para que nuestra API sea mejor usada, mas fácil de manejar y de entender por los usuarios que hagan uso, debemos controlar los errores que puedan haber y contestar con mensajes descriptivos. Por eso, vamos a adaptar nuestra API realizando los cambios pertinentes

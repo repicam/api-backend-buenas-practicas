@@ -9,9 +9,9 @@ const getAllProducts = (req, res) => {
 };
 
 const getOneProduct = (req, res) => {
-    const { params: {productId} } = req;
+    const { params: { productId } } = req;
 
-    if (!productId){
+    if (!productId) {
         res.status(400).send({
             status: "KO",
             error: "Se debe pasar un identificador por parámetro para buscar"
@@ -29,10 +29,10 @@ const getOneProduct = (req, res) => {
 const createNewProduct = (req, res) => {
     const { body } = req;
 
-    if (!body.title || !body.description || !body.price || !body.rating || !body.stock || !body.category){
+    if (!body.title || !body.description || !body.price || !body.rating || !body.stock || !body.category) {
         res.status(400).send({
             status: "KO",
-            error: "Faltan datos obligatorios"
+            data: { error: "Faltan datos obligatorios" }
         });
         return;
     }
@@ -50,67 +50,68 @@ const createNewProduct = (req, res) => {
         images: body.images,
     };
 
-    const createdProduct = productService.createNewProduct(newProduct);
-    if (createdProduct.errorMsg != undefined){
-        res.status(400).send({
+    try {
+        const createdProduct = productService.createNewProduct(newProduct);
+        res.status(201).send({
+            status: "OK",
+            data: createdProduct
+        });
+    } catch (error) {
+        res.status(error?.status || 500).send({
             status: "KO",
-            error: createdProduct.errorMsg
+            data: { error: error?.msg || error }
         });
     }
-    
-    res.status(201).send({
-        status: "OK",
-        data: createdProduct
-    });
 };
 
 const updateOneProduct = (req, res) => {
-    const { body, params: {productId} } = req;
+    const { body, params: { productId } } = req;
 
-    if (!productId){
+    if (!productId) {
         res.status(400).send({
             status: "KO",
-            error: "Se debe pasar un identificador por parámetro para modificar"
+            data: { error: "Se debe pasar un identificador por parámetro para modificar" }
         });
         return;
     }
 
-    const updatedProduct = productService.updateOneProduct(productId, body);
-    if (updatedProduct.errorMsg != undefined){
-        res.status(400).send({
+    try {
+        const updatedProduct = productService.updateOneProduct(productId, body);
+        res.status(201).send({
+            status: "OK",
+            data: updatedProduct
+        });
+    } catch (error) {
+        res.status(error?.status || 500).send({
             status: "KO",
-            error: updatedProduct.errorMsg
+            data: { error: error?.msg || error }
         });
     }
-
-    res.status(201).send({
-        status: "OK",
-        data: updatedProduct
-    });
 };
 
 const deleteOneProduct = (req, res) => {
-    const { params: {productId} } = req;
+    const { params: { productId } } = req;
 
-    if (!productId){
+    if (!productId) {
         res.status(400).send({
             status: "KO",
-            error: "Se debe pasar un identificador por parámetro para buscar"
+            data: { error: "Se debe pasar un identificador por parámetro para modificar" }
         });
         return;
     }
 
-    const success = productService.deleteOneProduct(productId);
-    if (success.errorMsg != undefined){
-        res.status(400).send({
+    try {
+        productService.deleteOneProduct(productId);
+        res.status(204).send({
+            status: "OK",
+            data: null
+        });
+    } catch (error) {
+        res.status(error?.status || 500).send({
             status: "KO",
-            error: success.errorMsg
+            data: { error: error?.msg || error }
         });
     }
-
-    res.status(204).send({
-        status: "OK"
-    });
 };
 
 module.exports = {

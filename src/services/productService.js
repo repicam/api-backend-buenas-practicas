@@ -1,9 +1,9 @@
 const { v4: uuid } = require("uuid");
 const Product = require("../database/Product");
 
-const getAllProducts = () => {
+const getAllProducts = (filterParams) => {
     try {
-        const allProducts = Product.getAllProducts();
+        const allProducts = Product.getAllProducts(filterParams);
         return allProducts;
     } catch (error) {
         throw error;

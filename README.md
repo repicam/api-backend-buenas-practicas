@@ -66,3 +66,15 @@ Por anidar rutas para obtener recursos, no es recomendable anidar mas de tres ni
 }
 
 De esta forma, accediendo a nuestro endpoint /api/v1/products/:productId/records, obtenemos la información de la compra (id del producto y la cantidad) con el usuario y el endpoint (uri) para obtener la información de ese usuario si nos hiciera falta, o viceversa, para consultar las compras de un usuario (/api/v1/members/:memberId/records) donde obtendremos todas las compras del usuario indicado con los productos y cantidad
+
+### 2.2 Filtros y caché
+Una buena API, tiene posibilidad de filtrado, por ejemplo de la propiedad "brand" de nuestro objeto Product. Para esto, modificamos la búsqueda global para permitir parámetros, y si viene algún filtro, lo usaremos en la búsqueda
+
+Para el cacheado usaremos el paquete de express apicache, para poner en práctica el cacheado, pero para una aplicacion real, se recomienda Redis
+En nuestras rutas, inicializamos el paquete y lo podemos meter en la ruta que queremos cachear y el tiempo, como por ejemplo:
+
+    router.get("/",cache("2 minutes"), productController.getAllProducts)
+
+Pero si queremos cachear toda la aplicación, lo añadiremos como capa del middleware en el index de la aplicación, antes del enrutador, porque debe mantener un orden
+
+    app.use(cache("2 minutes"))

@@ -1,10 +1,13 @@
 const express = require("express");
-const router = express.Router();
+const apicache = require("apicache");
 const productController = require("../../controllers/productController");
 const recordController = require("../../controllers/recordController");
 
+const router = express.Router();
+const cache = apicache.middleware;
+
 router
-    .get("/", productController.getAllProducts)
+    .get("/",cache("2 minutes"), productController.getAllProducts)
     .get("/records", recordController.getAllRecords)
     .get("/:productId", productController.getOneProduct)
     .get("/:productId/records", recordController.getRecordByProduct)

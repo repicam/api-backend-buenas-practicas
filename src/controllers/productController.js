@@ -1,7 +1,8 @@
 const productService = require("../services/productService");
 
 const getAllProducts = (req, res) => {
-    const allProducts = productService.getAllProducts();
+    const { brand } = req.query;
+    const allProducts = productService.getAllProducts({brand});
     res.status(201).send({
         status: "OK",
         data: allProducts

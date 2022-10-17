@@ -81,3 +81,5 @@ Pero si queremos cachear toda la aplicación, lo añadiremos como capa del middl
 
 ### 2.3 Swagger
 Para documentar la API, usaremos Swagger, una "vista" que permite testar mas fácil y ver que endpoints contiene la API, que parámetros u objetos necesita, etc
+
+    http://localhost:3000/api/v1/docs/#/

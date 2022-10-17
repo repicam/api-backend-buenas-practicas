@@ -78,3 +78,6 @@ En nuestras rutas, inicializamos el paquete y lo podemos meter en la ruta que qu
 Pero si queremos cachear toda la aplicación, lo añadiremos como capa del middleware en el index de la aplicación, antes del enrutador, porque debe mantener un orden
 
     app.use(cache("2 minutes"))
+
+### 2.3 Swagger
+Para documentar la API, usaremos Swagger, una "vista" que permite testar mas fácil y ver que endpoints contiene la API, que parámetros u objetos necesita, etc

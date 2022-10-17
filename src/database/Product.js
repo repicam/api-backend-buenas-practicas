@@ -1,6 +1,56 @@
 const DB = require("./bd.json");
 const { saveData } = require("./utils");
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: 61dbae02-c147-4e28-863c-db7bd402b2d6
+ *         title: 
+ *           type: string
+ *           example: iPhone X  
+ *         description:
+ *           type: string
+ *           example: SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...
+ *         price:
+ *           type: number
+ *           example: 899
+ *         discountPercentage:
+ *           type: number
+ *           example: 17.94
+ *         rating:
+ *           type: number
+ *           example: 4.44
+ *         stock:
+ *           type: number
+ *           example: 34
+ *         brand:
+ *           type: string
+ *           example: Apple
+ *         category: 
+ *           type: string
+ *           example: smartphones
+ *         thumbnail: 
+ *           type: string
+ *           example: https://dummyjson.com/image/i/products/2/thumbnail.jpg
+ *         images:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: [
+ *                      "https://dummyjson.com/image/i/products/2/1.jpg",
+ *                      "https://dummyjson.com/image/i/products/2/2.jpg",
+ *                      "https://dummyjson.com/image/i/products/2/3.jpg",
+ *                      "https://dummyjson.com/image/i/products/2/thumbnail.jpg"
+ *                  ]
+ */
+
+
 const getAllProducts = (filterParams) => {
     try {
         let products = DB.products;
